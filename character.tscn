@@ -1,16 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://b37mq1l7gipn4"]
+[gd_scene load_steps=8 format=3 uid="uid://b37mq1l7gipn4"]
 
-[ext_resource type="Texture2D" uid="uid://cpd76uqvh0syp" path="res://icon.svg" id="1_a55wy"]
 [ext_resource type="Script" path="res://Player.cs" id="2_2ls25"]
 [ext_resource type="Texture2D" uid="uid://3vi8uxd2lt8c" path="res://art/playerGrey_walk1.png" id="2_n3may"]
 [ext_resource type="Texture2D" uid="uid://cnfgdr074me6y" path="res://art/playerGrey_walk2.png" id="3_0fvix"]
 [ext_resource type="Texture2D" uid="uid://dca0jdwr7q5nm" path="res://art/playerGrey_up1.png" id="3_e2y70"]
 [ext_resource type="Texture2D" uid="uid://di8rcu8kwncph" path="res://art/playerGrey_up2.png" id="4_lbxqm"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ny40"]
-size = Vector2(129, 128)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_dkjnu"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_tx2cs"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -35,43 +31,23 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5p50m"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1022p"]
 radius = 32.0
 height = 64.0
 
-[node name="Character" type="Node2D"]
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-position = Vector2(88, 96)
-
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
-texture = ExtResource("1_a55wy")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_8ny40")
-
-[node name="Label" type="Label" parent="."]
-offset_left = 200.0
-offset_top = 32.0
-offset_right = 291.0
-offset_bottom = 58.0
-text = "Hello World"
-
-[node name="Player" type="Area2D" parent="."]
+[node name="Player" type="Area2D"]
 position = Vector2(176, 200)
 script = ExtResource("2_2ls25")
 metadata/_edit_group_ = true
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
-sprite_frames = SubResource("SpriteFrames_dkjnu")
+sprite_frames = SubResource("SpriteFrames_tx2cs")
 animation = &"up"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1.52588e-05, 0)
-shape = SubResource("CapsuleShape2D_5p50m")
+shape = SubResource("CapsuleShape2D_1022p")
 
-[connection signal="body_entered" from="Player" to="Player" method="_on_body_entered"]
+[connection signal="Hit" from="." to="." method="game_over"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
